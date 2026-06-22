@@ -110,7 +110,20 @@ Route::get('/pastEvent', [SportsController::class, 'pastEvent'])->name('pastEven
 Route::get('/blogdetails', [SportsController::class, 'blogEvent'])->name('blogEvent');
 Route::get('/detailsEvent', [SportsController::class, 'detailsEvent'])->name('detailsEvent');
 Route::get('/user-profile', [SportsController::class, 'profile'])->name('user-profile');
-Route::get('/crmdashboard', [SportsController::class, 'crmdashboard'])->name('crmdashboard');
+Route::get('/dashboard', function () {
+    $userType = (int) auth()->user()->user_type;
+
+    if ($userType === 1) {
+        return redirect()->route('clientlist');
+    }
+
+    return $userType === 2
+        ? redirect()->route('crmdashboard')
+        : redirect()->route('user.dashboard');
+})->middleware('auth')->name('dashboard');
+
+Route::middleware(['auth', 'crm'])->group(function () {
+    Route::get('/crmdashboard', [SportsController::class, 'crmdashboard'])->name('crmdashboard');
 Route::get('/crmevent', [SportsController::class, 'crmevent'])->name(name: 'crmevent');
 // Route::get('/crmports', [SportsController::class, 'crmports'])->name(name: 'crmports');
 // Route::get('/crmtems', [SportsController::class, 'crmtems'])->name(name: 'crmtems');
@@ -125,6 +138,7 @@ Route::get('/crmsports/{id}', [SportsListController::class, 'details'])->name('s
 Route::post('/crmtemsbook', [SportsListController::class, 'crmtemsbook'])->name('crmtemsbook');
 Route::post('/corporateSave', [SportsListController::class, 'corporateSave'])->name('corporateSave');
 Route::post('/corporateBooking', [SportsListController::class, 'corporateBooking'])->name('corporateBooking');
+});
 Route::get('/customer', [AuthController::class, 'customer'])->name('customer');
 Route::get('/customerdashboard', [AuthController::class, 'customerdashboard'])->name('customerdashboard');
 Route::post('/sportsRegister', [AuthController::class, 'sportsRegister'])->name('sportsRegister');
@@ -135,7 +149,8 @@ Route::post('/logoutcustomer', [AuthController::class, 'logoutcustomer'])->name(
 
 // travels
 
-Route::get('/crmtravel', [AdminTeamController::class, 'crmtravel'])->name('crmtravel');
+Route::middleware(['auth', 'crm'])->group(function () {
+    Route::get('/crmtravel', [AdminTeamController::class, 'crmtravel'])->name('crmtravel');
 Route::post('/crmtravelbook', [AdminTeamController::class, 'crmtravelbook'])->name('crmtravelbook');
 
 // network
@@ -145,6 +160,7 @@ Route::post('/crmnetworkbook', [AdminTeamController::class, 'crmnetworkbook'])->
 // payments
 
 Route::get('/crmtransaction', [AdminTeamController::class, 'crmtransaction'])->name('crmtransaction');
+});
 
 Route::get('/email/verify', function () {
     return view('frontEnd.user.verify');
