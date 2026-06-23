@@ -96,7 +96,7 @@
                     </button>
                 @endif
 
-                <a href="{{ route('walletwithdraw') }}" class="btn btn-secondary">
+                <a href="{{ route('paymentApproval') }}" class="btn btn-secondary">
                     <i class="fa fa-arrow-left"></i> {{ __('Back') }}
                 </a>
             </div>

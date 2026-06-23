@@ -18,6 +18,7 @@
     .swal2-modal{
         border-radius: 25px!important;
     }
+
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -44,7 +45,7 @@
                     onclick="filterSports('ALL', this)">All</button>
                 <button
                     class="tab-btn px-4 sm:px-6 py-2 bg-gray-200 text-gray-700 font-bold rounded-xl text-sm sm:text-base"
-                    onclick="filterSports('Esport', this)">Esport</button>
+                    onclick="filterSports('esports', this)">Esport</button>
                 <button
                     class="tab-btn px-4 sm:px-6 py-2 bg-gray-200 text-gray-700 font-bold rounded-xl text-sm sm:text-base"
                     onclick="filterSports('Physical', this)">Physical</button>
@@ -251,8 +252,12 @@ function renderSports() {
 // FILTER TABS
 function filterSports(cat, el){
     window.activeCategory = cat || 'ALL';
-    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('bg-[#e85a3c]','text-white'));
-    el.classList.add('bg-[#e85a3c]','text-white');
+    document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('bg-[#e85a3c]', 'text-white');
+        b.classList.add('bg-gray-200', 'text-gray-700');
+    });
+    el.classList.remove('bg-gray-200', 'text-gray-700');
+    el.classList.add('bg-[#e85a3c]', 'text-white');
     renderSports();
 }
 

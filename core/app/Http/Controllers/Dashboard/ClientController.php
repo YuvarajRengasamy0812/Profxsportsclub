@@ -149,8 +149,29 @@ class ClientController extends Controller
 //             ]);
 //         }*/
         
-// 		return view("dashboard.clients.list", compact('GeneralWebmasterSections', 'Users', 'stats'));		
+// 		return view("dashboard.clients.list", compact('GeneralWebmasterSections', 'Users', 'stats'));
 // 	}
+
+    public function clientsUpdateAll(Request $request)
+    {
+        if ($request->ids != "") {
+            if ($request->action == "activate") {
+                User::whereIn('id', $request->ids)->update(['status' => 1]);
+            } elseif ($request->action == "block") {
+                User::whereIn('id', $request->ids)->where('id', '!=', 1)->update(['status' => 0]);
+            } elseif ($request->action == "delete") {
+                $users = User::whereIn('id', $request->ids)->where('id', '!=', 1)->get();
+                foreach ($users as $user) {
+                    if ($user->photo != "") {
+                        File::delete('uploads/users/' . $user->photo);
+                    }
+                }
+                User::whereIn('id', $request->ids)->where('id', '!=', 1)->delete();
+            }
+        }
+        return redirect()->route('clientlist')->with('doneMessage', __('backend.saveDone'));
+    }
+
 	public function clientlist(Request $request, CertificateService $certificateService)
 {
     $GeneralWebmasterSections = WebmasterSection::where('status', 1)

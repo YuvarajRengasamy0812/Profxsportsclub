@@ -114,7 +114,7 @@
     <!-- User Panel -->
     <div class="mt-auto bg-slate-50 p-6 rounded-[2rem] border border-slate-100">
       <div class="flex items-center gap-3 mb-4">
-        <img src="{{ URL::to( ($user->photo ?? 'https://profxleague.com/assets/frontend/img/user.png')) }}" alt="User" class="w-10 h-10 rounded-full border-2 border-white shadow-md">
+        <img src="{{ $user->photo ? asset($user->photo) : asset('assets/frontend/images/user.png') }}" onerror="this.src='{{ asset('assets/frontend/images/user.png') }}'" alt="User" class="w-10 h-10 rounded-full border-2 border-white shadow-md">
         <div class="min-w-0">
           <p class="font-black text-sm text-[#0f172a] truncate">{{ $user->name }}</p>
           <!-- <p class="text-[10px] font-bold text-[#e85a3c] uppercase">Level 5 Pro</p> -->

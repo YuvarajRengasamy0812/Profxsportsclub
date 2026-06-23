@@ -96,12 +96,10 @@
                         <i class="fa fa-user-plus"></i> {{ __('backend.createNewAccount') }}
                     </a>
                 @endif
-                @if(config('smartend.mail_driver') != "" && config('smartend.mail_username') !="" && config('smartend.mail_password'))
-                    <div class="p-v-lg text-center">
-                        <div class="m-t"><a href="{{ url('/'.config('smartend.backend_path').'/password/reset') }}"
-                                            class="text-primary _600">{{ __('backend.forgotPassword') }}</a></div>
-                    </div>
-                @endif
+                <div class="p-v-lg text-center">
+                    <div class="m-t"><a href="{{ route('password.request') }}"
+                                        class="text-primary _600">{{ __('backend.forgotPassword') }}</a></div>
+                </div>
             </div>
         </div>
 

@@ -25,7 +25,7 @@
       <!-- AVATAR -->
       <div class="relative group">
         <div class="w-44 h-44 rounded-full overflow-hidden border-8 border-white shadow-2xl">
-          <img src="{{ URL::to( ($user->photo ?? 'https://profxleague.com/assets/frontend/img/user.png')) }}" class="w-full h-full object-cover">
+          <img src="{{ $user->photo ? asset($user->photo) : asset('assets/frontend/images/user.png') }}" onerror="this.src='{{ asset('assets/frontend/images/user.png') }}'" class="w-full h-full object-cover">
         </div>
         <!-- <div class="absolute bottom-4 right-4 bg-[#e85a3c] p-3 rounded-full ring-4 ring-white text-white">
           <i data-lucide="zap"></i>
@@ -258,25 +258,30 @@
       <input type="text" name="name" placeholder="First Name"
        value="{{ auth()->user()->name }}"
        class="w-full p-4 mt-3 rounded-xl border font-bold">
- <label class="text-xs font-black uppercase text-slate-400"> Last Name</label>
+      <p id="err-name" class="text-red-500 text-xs font-bold mt-1 hidden"></p>
+ <label class="text-xs font-black uppercase text-slate-400 mt-3 block"> Last Name</label>
       <input type="text" name="lastname" placeholder="Last Name"
        value="{{ auth()->user()->lastname }}"
        class="w-full p-4 mt-3 rounded-xl border font-bold">
- <label class="text-xs font-black uppercase text-slate-400"> Phone</label>
+      <p id="err-lastname" class="text-red-500 text-xs font-bold mt-1 hidden"></p>
+ <label class="text-xs font-black uppercase text-slate-400 mt-3 block"> Phone</label>
       <input type="text" name="phone" placeholder="Phone"
        value="{{ auth()->user()->phone }}"
        class="w-full p-4 mt-3 rounded-xl border font-bold">
- <label class="text-xs font-black uppercase text-slate-400">Country</label>
+      <p id="err-phone" class="text-red-500 text-xs font-bold mt-1 hidden"></p>
+ <label class="text-xs font-black uppercase text-slate-400 mt-3 block">Country</label>
       <input type="text" name="nationalities" placeholder="Nationality"
        value="{{ auth()->user()->nationalities }}"
        class="w-full p-4 mt-3 rounded-xl border font-bold">
- <label class="text-xs font-black uppercase text-slate-400">Profile Image</label>
+      <p id="err-nationalities" class="text-red-500 text-xs font-bold mt-1 hidden"></p>
+ <label class="text-xs font-black uppercase text-slate-400 mt-3 block">Profile Image</label>
       <input type="file" name="photo"
        class="w-full p-3 mt-3 border rounded-xl file:mr-4 file:py-2 file:px-4
             file:border-0
             file:text-sm file:font-semibold
             file:bg-dark-50 file:text-white-700
             hover:file:bg-blue-100 border">
+      <p id="err-photo" class="text-red-500 text-xs font-bold mt-1 hidden"></p>
  <div class="flex justify-center">
       <button type="submit"
    class="w-60 py-3 bg-[#e85a3c] mt-5 text-white rounded-2xl font-bold hover:bg-[#0f172a] transition">
@@ -285,7 +290,7 @@
       </div>
     </form>
 
-    <p id="profileMsg" class="text-center mt-4 font-bold"></p>
+    <p id="profileMsg" class="text-center mt-4 font-bold hidden"></p>
 
   </div>
 </div>
@@ -343,6 +348,15 @@ function closeEditProfileModal(){
 document.getElementById('profileForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
+    const fieldIds = ['name', 'lastname', 'phone', 'nationalities', 'photo'];
+    fieldIds.forEach(id => {
+        const el = document.getElementById('err-' + id);
+        if (el) { el.textContent = ''; el.classList.add('hidden'); }
+    });
+    const profileMsg = document.getElementById('profileMsg');
+    profileMsg.textContent = '';
+    profileMsg.classList.add('hidden');
+
     const formData = new FormData(this);
 
     fetch("{{ route('user.profile.update') }}", {
@@ -355,8 +369,6 @@ document.getElementById('profileForm').addEventListener('submit', function(e) {
     })
     .then(res => res.json())
     .then(data => {
-        console.log(data);
-
         if (data.success) {
             Swal.fire({
                 icon: 'success',
@@ -364,18 +376,25 @@ document.getElementById('profileForm').addEventListener('submit', function(e) {
                 text: data.message,
                 showConfirmButton: false,
                 timer: 2000
+            }).then(() => location.reload());
+        } else if (data.errors) {
+            Object.entries(data.errors).forEach(([field, messages]) => {
+                const el = document.getElementById('err-' + field);
+                if (el) {
+                    el.textContent = messages[0];
+                    el.classList.remove('hidden');
+                }
             });
-            location.reload();
         } else {
-            alert('Error: ' + JSON.stringify(data.errors ?? data.message));
+            profileMsg.textContent = data.message ?? 'Something went wrong. Please try again.';
+            profileMsg.classList.remove('hidden');
+            profileMsg.style.color = '#e85a3c';
         }
     })
-    .catch(err => {
-         Swal.fire({
-                icon: 'error',
-                title: 'Oops!',
-                text: 'Failed to save payment.'
-            });
+    .catch(() => {
+        profileMsg.textContent = 'Network error. Please check your connection and try again.';
+        profileMsg.classList.remove('hidden');
+        profileMsg.style.color = '#e85a3c';
     });
 });
 

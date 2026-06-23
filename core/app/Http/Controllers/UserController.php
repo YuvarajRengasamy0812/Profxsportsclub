@@ -59,6 +59,16 @@ class UserController extends Controller
     }
     public function dashboard(Request $request)
     {
+        $userType = (int) auth()->user()->user_type;
+
+        if ($userType === 1) {
+            return redirect()->route('clientlist');
+        }
+
+        if ($userType === 2) {
+            return redirect()->route('crmdashboard');
+        }
+
         $pagetitle = "Dashboard";
 // 		$overallRank = '#';
 // 		$totaltranscation = WalletTransaction::where('user_id', auth()->id())->count();
@@ -945,6 +955,16 @@ public function updateProfile(Request $request)
         'phone'         => 'required|string|max:20',
         'nationalities' => 'nullable|string|max:255',
         'photo'         => 'nullable|image|mimes:jpg,jpeg,png,webp|max:8048',
+    ], [
+        'name.required'      => 'Name is required.',
+        'name.max'           => 'Name must not exceed 255 characters.',
+        'lastname.required'  => 'Last name is required.',
+        'lastname.max'       => 'Last name must not exceed 255 characters.',
+        'phone.required'     => 'Phone is required.',
+        'phone.max'          => 'Phone must not exceed 20 characters.',
+        'photo.image'        => 'Profile image must be an image file.',
+        'photo.mimes'        => 'Profile image must be a JPG, JPEG, PNG, or WEBP file.',
+        'photo.max'          => 'Profile image must not exceed 8MB.',
     ]);
 
     if ($validator->fails()) {
@@ -1518,8 +1538,13 @@ public function upload_kyc(Request $request)
 	
 	public function myresult(Request $request){
 	    $pagetitle = 'My Results';
-	    return view("frontEnd.user.myresult", compact('pagetitle'));	
+	    return view("frontEnd.user.myresult", compact('pagetitle'));
 	}
 
-	
+    public function publicProfile($id)
+    {
+        $user = \App\Models\User::findOrFail($id);
+        return view('crm.public-profile', compact('user'));
+    }
+
 }

@@ -52,7 +52,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="{{ URL::asset('assets/crm/css/style.css') }}?v={{ Helper::system_version() }}" rel="stylesheet">
-  <script src="https://unpkg.com/lucide/dist/umd/lucide.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 
 
 </head>

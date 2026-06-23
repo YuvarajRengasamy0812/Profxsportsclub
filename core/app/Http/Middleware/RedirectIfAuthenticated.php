@@ -21,7 +21,13 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                $userType = (int) Auth::guard($guard)->user()->user_type;
+
+                if ($userType === 1) {
+                    return redirect('/admin/clientlist');
+                }
+
+                return redirect('/crmdashboard');
             }
         }
 

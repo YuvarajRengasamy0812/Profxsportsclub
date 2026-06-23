@@ -15,6 +15,7 @@
             margin-left: 0px !important;
         }
     }
+
 </style>
 
 <div class="bg-slate-50 min-h-screen">
@@ -233,7 +234,11 @@
 
     window.filterSports = function (cat, el) {
         window.activeCategory = cat || 'ALL';
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('bg-[#e85a3c]', 'text-white'));
+        document.querySelectorAll('.tab-btn').forEach(b => {
+            b.classList.remove('bg-[#e85a3c]', 'text-white');
+            b.classList.add('bg-gray-200', 'text-gray-700');
+        });
+        el.classList.remove('bg-gray-200', 'text-gray-700');
         el.classList.add('bg-[#e85a3c]', 'text-white');
         window.renderSports();
     };

@@ -62,6 +62,15 @@ Route::get('reset-password/{token}', [ResetPasswordController::class, 'showReset
 // Handle form submission (update password)
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])
     ->name('password.update');
+
+// Customer-styled forgot/reset password pages
+Route::get('/customer/forgot-password', function () {
+    return view('frontEnd.sportsuser.forgot-password');
+})->name('customer.password.request');
+
+Route::get('/customer/reset-password/{token}', function ($token) {
+    return view('frontEnd.sportsuser.reset-password', ['token' => $token]);
+})->name('customer.password.reset');
     
     
 /*Custom page controller*/
@@ -110,6 +119,7 @@ Route::get('/pastEvent', [SportsController::class, 'pastEvent'])->name('pastEven
 Route::get('/blogdetails', [SportsController::class, 'blogEvent'])->name('blogEvent');
 Route::get('/detailsEvent', [SportsController::class, 'detailsEvent'])->name('detailsEvent');
 Route::get('/user-profile', [SportsController::class, 'profile'])->name('user-profile');
+Route::get('/profile/{id}', [UserController::class, 'publicProfile'])->name('public.profile');
 Route::get('/dashboard', function () {
     $userType = (int) auth()->user()->user_type;
 
@@ -295,6 +305,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/league/certificate/{id}/download', [UserController::class, 'downloadCertificate'])
     ->name('league.certificate.download');
 });
+Route::post('/squad/{teamId}/add-player', [TeamController::class, 'addPlayer'])->middleware('auth')->name('squad.add-player');
+Route::delete('/player/{playerId}/remove', [TeamController::class, 'removePlayer'])->middleware('auth')->name('player.remove');
+Route::put('/player/{playerId}/update', [TeamController::class, 'updatePlayer'])->middleware('auth')->name('player.update');
+
 Route::post('/user/profile/update', [UserController::class, 'updateProfile'])
     ->middleware('auth')
     ->name('user.profile.update');

@@ -21,6 +21,10 @@ class Authenticate extends Middleware
             return url(config('smartend.backend_path').'/login');
         }
 
+        if ($request->is('crm*')) {
+            return route('customer');
+        }
+
         return route('login');
     }
     

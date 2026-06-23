@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.master') 
+﻿@extends('dashboard.layouts.master') 
 @section('title','Team Details')
 
 @section('content')
@@ -8,6 +8,7 @@
  <script src="{{ URL::asset('assets/crm/js/style.js') }}"></script>
  
 <script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config = { corePlugins: { preflight: false } }</script>
     <style>
         /* =======================
        TABS & BADGES STYLES
@@ -176,68 +177,49 @@
         $availableSlots = $team->max_players - $team->booked_players;
     @endphp
 
-                <div
-                        class="bg-white rounded-[3rem] p-10 border border-slate-100 shadow-xl hover:border-[#e85a3c] transition">
+                <div class="bg-white rounded-[3rem] p-10 border border-slate-100 shadow-xl hover:border-[#e85a3c] transition flex flex-col">
 
-                        {{-- SPORT & GAME --}}
+                        {{-- SPORT BADGE --}}
                         <div class="flex gap-2 mb-4">
                             <span class="badge badge-sport">{{ strtoupper($team->sports) }}</span>
-
                         </div>
 
+                        {{-- STATS --}}
                         <div class="flex justify-between mb-8">
-                           <div class="text-left">
-                                <div class="text-[10px] font-black text-slate-300 uppercase">
-                                   Status
-                                </div>
-                                <div class="text-xl font-black text-[#0f172a]">
-                                    {{ $team->status }}
-                                </div>
+                            <div class="text-left">
+                                <div class="text-[10px] font-black text-slate-300 uppercase">Status</div>
+                                <div class="text-xl font-black text-[#0f172a]">{{ $team->status }}</div>
                             </div>
                             <div class="text-left">
-                                <div class="text-[10px] font-black text-slate-300 uppercase">
-                                    Sports
-                                </div>
-                                <div class="text-xl font-black text-[#0f172a]">
-                                    {{ $team->game }}
-                                </div>
+                                <div class="text-[10px] font-black text-slate-300 uppercase">Sports</div>
+                                <div class="text-xl font-black text-[#0f172a]">{{ $team->game }}</div>
                             </div>
                             <div class="text-right">
-                                <div class="text-[10px] font-black text-slate-300 uppercase">
-                                    Slots
-                                </div>
-                                <div class="text-xl font-black text-[#0f172a]">
-                                    {{ $availableSlots }}
-                                </div>
+                                <div class="text-[10px] font-black text-slate-300 uppercase">Slots</div>
+                                <div class="text-xl font-black text-[#0f172a]">{{ $availableSlots }}</div>
                             </div>
                         </div>
 
-                        <div class="flex items-center gap-4 p-4  bg-orange-50 rounded-2xl">
-    <!-- Icon -->
-    <div class="text-[#e85a3c]">
-        <i data-lucide="users" class="w-6 h-6"></i>
-    </div>
+                        {{-- TEAM NAME --}}
+                        <div class="flex items-center gap-4 p-4 bg-orange-50 rounded-2xl">
+                            <div class="text-[#e85a3c]">
+                                <i data-lucide="users" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-3xl font-black text-[#0f172a] m-0">{{ $team->name }}</h3>
+                        </div>
 
-    <!-- Team Name -->
-    <h3 class="text-3xl font-black text-[#0f172a] m-0">
-        {{ $team->name }}
-    </h3>
-</div>
-
-                       
-
-                        {{-- PLAYERS --}}
-                        <div class="flex -space-x-2 mt-5 mb-8">
+                        {{-- PLAYERS — fixed height so empty teams stay aligned --}}
+                        <div class="flex -space-x-2 mt-5 mb-8 min-h-[2.5rem]">
                             @foreach($team->players->take(5) as $player)
-                                <div
-                                    class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-xs font-black border-2 border-white">
+                                <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-xs font-black border-2 border-white">
                                     {{ strtoupper(substr($player->name, 0, 1)) }}
                                 </div>
                             @endforeach
                         </div>
 
+                        {{-- BUTTON always at bottom --}}
                         <a href="{{ route('teamdetails', $team->id) }}"
-                            class="block text-center py-4 bg-[#0f172a] text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#e85a3c] transition">
+                            class="mt-auto block text-center py-4 bg-[#0f172a] text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#e85a3c] transition">
                             View Team
                         </a>
                     </div>

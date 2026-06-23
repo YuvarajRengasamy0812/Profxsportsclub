@@ -19,9 +19,9 @@
 
       <!-- Tabs -->
       <div class="flex gap-2 p-2 bg-white rounded-3xl shadow-sm border border-slate-100">
-        <button class="tab-btn active" onclick="filterSports('ALL', this)">ALL</button>
+        <button class="tab-btn px-4 sm:px-6 py-2 bg-[#e85a3c] text-white font-bold rounded-xl text-sm sm:text-base" onclick="filterSports('ALL', this)">ALL</button>
         @foreach($categories as $cat)
-          <button class="tab-btn"
+          <button class="tab-btn px-4 sm:px-6 py-2 bg-gray-200 text-gray-700 font-bold rounded-xl text-sm sm:text-base"
             onclick="filterSports('{{ strtoupper(trim($cat->title_en)) }}', this)">
             {{ strtoupper($cat->title_en) }}
           </button>
@@ -204,8 +204,12 @@ window.renderSports = function() {
 
 window.filterSports = function(cat, el) {
     window.activeCategory = cat || 'ALL';
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    el.classList.add('active');
+    document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('bg-[#e85a3c]', 'text-white');
+        b.classList.add('bg-gray-200', 'text-gray-700');
+    });
+    el.classList.remove('bg-gray-200', 'text-gray-700');
+    el.classList.add('bg-[#e85a3c]', 'text-white');
     window.renderSports();
 };
 
@@ -432,20 +436,6 @@ document.addEventListener('DOMContentLoaded', window.renderSports);
     font-weight: 900;
 }
 
-.tab-btn {
-  padding: 8px 16px;
-  font-weight: bold;
-  background: #eee;
-  border-radius: 12px;
-  text-transform: uppercase;
-  font-size: 10px;
-  cursor: pointer;
-}
-.tab-btn.active {
-  background: #e85a3c;
-  color: #fff;
-  box-shadow: 0 6px 20px rgba(232,90,60,0.3);
-}
 </style>
 
 @endsection

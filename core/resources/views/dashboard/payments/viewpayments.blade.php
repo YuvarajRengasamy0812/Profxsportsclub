@@ -113,7 +113,7 @@
     <div class="card-box">
         <div class="card-header">
             <h4>Payments Details</h4>
-            <a href="{{ route('corporateList') }}" class="btn btn-secondary btn-back"> Back</a>
+            <a href="{{ route('paymentApproval') }}" class="btn btn-secondary btn-back"> Back</a>
         </div>
 
         <!-- INFO CARDS ROW -->

@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.master') 
+﻿@extends('dashboard.layouts.master') 
 @section('title','Team Details')
 
 @section('content')
@@ -8,6 +8,7 @@
  <script src="{{ URL::asset('assets/crm/js/style.js') }}"></script>
  
 <script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config = { corePlugins: { preflight: false } }</script>
     <style>
         /* =======================
        TABS & BADGES STYLES

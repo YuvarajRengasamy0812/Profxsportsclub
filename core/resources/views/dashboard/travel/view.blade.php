@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.master') 
+﻿@extends('dashboard.layouts.master') 
 @section('title','ViewTeam Details')
 
 @section('content')
@@ -7,6 +7,7 @@
    <script src="https://unpkg.com/lucide/dist/umd/lucide.js"></script>
     <script src="{{ URL::asset('assets/crm/js/style.js') }}"></script>
 <script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config = { corePlugins: { preflight: false } }</script>
 <div class="bg-slate-50 min-h-screen p-8">
 <div class="max-w-7xl mx-auto space-y-14">
 

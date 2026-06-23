@@ -212,7 +212,7 @@
             </div>
 
             <div class="corp-links">
-                <a href="{{ route('password.request') }}">Forgot Password?</a>
+                <a href="{{ route('customer.password.request') }}">Forgot Password?</a>
             </div>
 
             <button class="corp-login-btn mt-4">

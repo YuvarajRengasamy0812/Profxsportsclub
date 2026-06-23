@@ -95,4 +95,58 @@ class TeamController extends Controller
 
         return view('crm.viewteam', compact('team'));
     }
+
+    public function addPlayer(Request $request, $teamId)
+    {
+        $request->validate(['name' => 'required|string|max:255']);
+
+        $team = AdminTeam::with('players')->findOrFail($teamId);
+        $user = Auth::user();
+
+        if ((int) $user->user_type !== 1 && (int) $team->user_id !== (int) $user->id) {
+            return response()->json(['success' => false, 'message' => 'Unauthorized.'], 403);
+        }
+
+        if ($team->players->count() >= $team->max_players) {
+            return response()->json(['success' => false, 'message' => 'Squad is already at max capacity (' . $team->max_players . ' players).'], 422);
+        }
+
+        $player = Player::create([
+            'team_id' => $team->id,
+            'user_id' => Auth::id(),
+            'name'    => trim($request->name),
+        ]);
+
+        return response()->json(['success' => true, 'player' => $player]);
+    }
+
+    public function removePlayer($playerId)
+    {
+        $player = Player::with('team')->findOrFail($playerId);
+        $user   = Auth::user();
+
+        if ((int) $user->user_type !== 1 && (int) $player->team->user_id !== (int) $user->id) {
+            return response()->json(['success' => false, 'message' => 'Unauthorized.'], 403);
+        }
+
+        $player->delete();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function updatePlayer(Request $request, $playerId)
+    {
+        $request->validate(['name' => 'required|string|max:255']);
+
+        $player = Player::with('team')->findOrFail($playerId);
+        $user   = Auth::user();
+
+        if ((int) $user->user_type !== 1 && (int) $player->team->user_id !== (int) $user->id) {
+            return response()->json(['success' => false, 'message' => 'Unauthorized.'], 403);
+        }
+
+        $player->update(['name' => trim($request->name)]);
+
+        return response()->json(['success' => true, 'player' => $player]);
+    }
 }

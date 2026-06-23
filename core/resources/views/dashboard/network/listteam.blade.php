@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.master') 
+﻿@extends('dashboard.layouts.master') 
 @section('title','Team Details')
 
 @section('content')
@@ -8,6 +8,7 @@
  <script src="{{ URL::asset('assets/crm/js/style.js') }}"></script>
  
 <script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config = { corePlugins: { preflight: false } }</script>
     <style>
         /* =======================
        TABS & BADGES STYLES
@@ -229,7 +230,7 @@
                 </div>
 
                 {{-- DETAILS BUTTON --}}
-                <a href="{{ route('traveldetails', $team->id) }}"
+                <a href="{{ route('networkdetails', $team->id) }}"
                    class="mt-4 block text-center py-3 bg-gray-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-orange-500 transition-colors duration-300">
                     Network Team
                 </a>

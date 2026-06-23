@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // Current Full URL
 $fullPagePath = Request::url();
 // Char Count of Backend folder Plus 1
@@ -9,6 +9,31 @@ $mnu_title_var = "title_" . @Helper::currentLanguage()->code;
 $mnu_title_var2 = "title_" . config('smartend.default_language');
 ?>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+.app-aside .navbar.navbar-md {
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.app-aside .navbar.navbar-md .navbar-brand {
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+.app-aside .navbar.navbar-md .navbar-brand img {
+    margin-top: 0;
+    vertical-align: middle;
+}
+.app-aside .navbar.navbar-md .folded-toggle {
+    float: none !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+</style>
 <div id="aside" class="app-aside modal fade folded md nav-expand">
     <div class="left navside dark dk" layout="column">
 
@@ -59,56 +84,45 @@ $mnu_title_var2 = "title_" . config('smartend.default_language');
                         <small class="text-muted">Client</small>
                     </li>
 					
-					<li class="{{ request()->routeIs('clientlist') || request()->routeIs('clientlist') ? 'active' : '' }}">
-						<a href="{{ route('clientlist') }}" ><span class="nav-icon"><i class="material-icons">&#xe7fb;</i></span>
+					<li class="{{ request()->routeIs('clientlist','clientview','clientedit') ? 'active' : '' }}">
+						<a href="{{ route('clientlist') }}"><span class="nav-icon"><i class="material-icons">&#xe7fb;</i></span>
 							<span class="nav-text">Client List</span>
 						</a>
 					</li>
-					    <li><a href="{{ route('bookingList') }}"> <span class="nav-icon">
-                                <i class="material-icons">meeting_room</i>
-                            </span>
-                            <span class="nav-text">Book Details</span>
-                    </a></li>
-                    
-                      <li><a href="{{ route('corporateList') }}"> <span class="nav-icon">
-                              <i class="material-icons">cloud</i>
-                            </span>
-                            <span class="nav-text">Corporate List </span>
-                    </a></li>
-                                          <li><a href="{{ route('membershipList') }}"> <span class="nav-icon">
-                                <i class="material-icons">person_outline</i>
-                            </span>
-                            <span class="nav-text">Membership List </span>
-                    </a></li>
-                              <li><a href="{{ route('listtems') }}"> <span class="nav-icon">
-                                <i class="material-icons">group_add</i>
-                            </span>
-                            <span class="nav-text">Team List </span>
-                    </a></li>
-
-                    <li><a href="{{ route('listtravel') }}"> <span class="nav-icon">
-<i class="material-icons">flight</i>
-
-
-                            </span>
-                            <span class="nav-text">Travel List </span>
-                    </a></li>
-					<li>
-    <a href="{{ route('listnetwork') }}">
-        <span class="nav-icon">
-            <i class="material-icons">hub</i>
-        </span>
-        <span class="nav-text">Network List</span>
-    </a>
-</li>
-	<li><a href="{{ route('paymentApproval') }}">  
-	<span class="nav-icon">
-           <i class="material-icons">payment</i>
-        </span>
-        <span class="nav-text">Payment History</span></a></li>
-        
-
-
+					<li class="{{ request()->routeIs('bookingList','bookingview') ? 'active' : '' }}">
+						<a href="{{ route('bookingList') }}"><span class="nav-icon"><i class="material-icons">meeting_room</i></span>
+							<span class="nav-text">Book Details</span>
+						</a>
+					</li>
+					<li class="{{ request()->routeIs('corporateList','corporateview') ? 'active' : '' }}">
+						<a href="{{ route('corporateList') }}"><span class="nav-icon"><i class="material-icons">cloud</i></span>
+							<span class="nav-text">Corporate List</span>
+						</a>
+					</li>
+					<li class="{{ request()->routeIs('membershipList','membershipView') ? 'active' : '' }}">
+						<a href="{{ route('membershipList') }}"><span class="nav-icon"><i class="material-icons">person_outline</i></span>
+							<span class="nav-text">Membership List</span>
+						</a>
+					</li>
+					<li class="{{ request()->routeIs('listtems','teamdetails') ? 'active' : '' }}">
+						<a href="{{ route('listtems') }}"><span class="nav-icon"><i class="material-icons">group_add</i></span>
+							<span class="nav-text">Team List</span>
+						</a>
+					</li>
+					<li class="{{ request()->routeIs('listtravel','traveldetails') ? 'active' : '' }}">
+						<a href="{{ route('listtravel') }}"><span class="nav-icon"><i class="material-icons">flight</i></span>
+							<span class="nav-text">Travel List</span>
+						</a>
+					</li>
+					<li class="{{ request()->routeIs('listnetwork','networkdetails') ? 'active' : '' }}">
+						<a href="{{ route('listnetwork') }}"><span class="nav-icon"><i class="material-icons">hub</i></span>
+							<span class="nav-text">Network List</span>
+						</a>
+					</li>
+					<li class="{{ request()->routeIs('paymentApproval','paymentApproval.show') ? 'active' : '' }}">
+						<a href="{{ route('paymentApproval') }}"><span class="nav-icon"><i class="material-icons">payment</i></span>
+							<span class="nav-text">Payment History</span>
+						</a>
 					</li>
 
 					<!-- <li class="{{ request()->routeIs('touraccountlist') || request()->routeIs('touraccountlist') ? 'active' : '' }}">

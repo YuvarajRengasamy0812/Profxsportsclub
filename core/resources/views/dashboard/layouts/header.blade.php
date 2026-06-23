@@ -1,4 +1,30 @@
 <div class="app-header white box-shadow navbar-md">
+    <style>
+    @media (min-width: 768px) {
+        .app-header .navbar {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+        .app-header .navbar > .navbar-item,
+        .app-header .navbar > ul.navbar-nav {
+            float: none !important;
+        }
+        .app-header .navbar > ul.navbar-nav {
+            order: 3;
+        }
+        .app-header #collapse {
+            display: flex !important;
+            align-items: center;
+            order: 2;
+            flex: 1;
+            justify-content: flex-end;
+        }
+        .app-header #collapse .navbar-form {
+            float: none !important;
+        }
+    }
+    </style>
     <div class="navbar">
         <!-- Open side - Naviation on mobile -->
         <a data-toggle="modal" data-target="#aside" class="navbar-item pull-left hidden-lg-up">

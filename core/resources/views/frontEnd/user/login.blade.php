@@ -52,7 +52,7 @@ $details_var2 = "details_" . config('smartend.default_language');
 						<i class="fal fa-lock"></i>
 					</div>
 
-                    <p class="mb-2"><a href="/forgot-password" class="btn-inline text-white">Forgot Your Password?</a></p>
+                    <p class="mb-2"><a href="{{ route('customer.password.request') }}" class="btn-inline text-white">Forgot Your Password?</a></p>
                     <p class="form-row form-group"><button type="submit" name="login" class="th-btn w-100">Login</button></p>
                     <p class="mb-0 text-center">Don't have an account? <a href="{{ url('/register') }}" class="btn-inline text-white">Register here</a></p>
 				</form>

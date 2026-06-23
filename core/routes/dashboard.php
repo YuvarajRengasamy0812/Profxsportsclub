@@ -125,8 +125,7 @@ Route::get('/traveldetails/{id}', [ClientController::class, 'traveldetails'])->n
 Route::post('/teams/network', [AdminTeamController::class, 'network'])->name('teams.network');
 Route::get('/viewnetwork/{id}', [AdminTeamController::class, 'viewnetwork'])->name('viewnetwork');
 Route::get('/listnetwork', [ClientController::class, 'listnetwork'])->name('listnetwork');
-
-Route::get('/traveldetails/{id}', [ClientController::class, 'traveldetails'])->name('traveldetails');
+Route::get('/networkdetails/{id}', [ClientController::class, 'networkdetails'])->name('networkdetails');
 
 // Sections
 Route::get('/{webmasterId}/categories', [CategoriesController::class, 'index'])->name('categories');
@@ -406,6 +405,7 @@ Route::post('/mt5/store', [SettingsController::class, 'storeMt5Account'])->name(
 Route::put('/mt5/{id}', [SettingsController::class, 'updateMt5Account'])->name('mt5Update');
 /*Client*/
 Route::get('/clientlist', [ClientController::class, 'clientlist'])->name('clientlist');
+Route::post('/clients/updateAll', [ClientController::class, 'clientsUpdateAll'])->name('clientsUpdateAll');
 Route::get('/client/create/', [ClientController::class, 'clientcreate'])->name('clientCreate');
 Route::post('/client/clientregister/', [ClientController::class, 'clientregister'])->name('clientregister');
 Route::post('/resend/{id}', [ClientController::class, 'resendVerification'])->name('resend');

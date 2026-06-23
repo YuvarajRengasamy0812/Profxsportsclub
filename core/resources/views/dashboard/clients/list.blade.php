@@ -191,7 +191,7 @@
 
 
         @if($Users->total() > 0)
-            {{Form::open()}}
+            {{Form::open(['route'=>'clientsUpdateAll','method'=>'post'])}}
             <div class="table-responsive">
                 <table class="table table-bordered m-a-0">
                     <thead class="dker">
@@ -313,7 +313,7 @@
                                     <small>{{ $User->email }}</small>
                                     </a>
                                 </td>
-                                <td class="h6">+{{ $User->country_code }} - {{ $User->phone }}</td>
+                                <td class="h6">{{ $User->country_code ? '+' . $User->country_code . ' ' . $User->phone : $User->phone }}</td>
                                 <td class="h6"><img src="https://flagcdn.com/24x18/{{ strtolower($User->flagcode) }}.png" alt="{{ $User->flagcode }}" /> {!! ucfirst($User->country) !!}</td>
                                 <td class="h6">{{ date('Y-m-d', strtotime($User->created_at)) }}</td>
                             </tr>
