@@ -1,7 +1,7 @@
 @extends('crm.layouts.master')
   @php
         $user = Auth::user();
-          $shareUrl = url('/profile/'.$user->id);
+          $shareUrl = url('/crmaccount?id='.$user->id);
   $shareText = urlencode("Check out my ProFX profile!");
      $Event = Helper::Topics(37);
     @endphp

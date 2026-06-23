@@ -152,7 +152,7 @@
     function hideNotifications() { notificationsModal.classList.add('hidden'); }
 
     document.addEventListener('DOMContentLoaded', function() {
-        const userProfileURL = "{{ route('public.profile', $user->id) }}";
+        const userProfileURL = "{{ url('/crmaccount?id='.$user->id) }}";
 
         document.getElementById('copyProfileLink').addEventListener('click', function() {
             navigator.clipboard.writeText(userProfileURL).then(() => {
