@@ -123,16 +123,14 @@ class LoginController extends Controller
         return back()->withErrors(['email' => 'Invalid credentials'])->withInput();
     }
 
-    public function logoutUser($request)
+    public function logoutUser(Request $request)
     {
         Auth::logout();
-        // return redirect('/login');
 
         $request->session()->invalidate();
-
-
         $request->session()->regenerateToken();
-        return redirect('/');
+
+        return redirect('/login');
     }
 
     protected function credentials(Request $request)

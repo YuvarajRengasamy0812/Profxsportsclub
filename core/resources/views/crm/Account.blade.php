@@ -34,7 +34,8 @@
       <!-- PROFILE -->
       <div id="profile" class="tabContent">
         <div style="display:flex; gap:32px; align-items:center; border-bottom:1px solid #e5e7eb; padding-bottom:32px;">
-          <img src="{{ $user->photo ? url($user->photo) : 'https://avatar.iran.liara.run/public' }}"
+          <img src="{{ $user->photo ? asset($user->photo) : asset('assets/frontend/images/user.png') }}"
+               onerror="this.src='{{ asset('assets/frontend/images/user.png') }}'"
                style="width:112px; height:112px; border-radius:50%; object-fit:cover; box-shadow:0 10px 30px rgba(0,0,0,0.15);">
           <div>
             <h3 style="margin:0; font-size:26px; font-weight:900; color:#0f172a;">{{ $user->name }}</h3>

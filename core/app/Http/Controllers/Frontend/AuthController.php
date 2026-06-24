@@ -24,7 +24,7 @@ class AuthController extends Controller
 
      public function __construct(MailService $mailService)
     {
-        $this->middleware('guest');
+        $this->middleware('guest')->except('logoutcustomer');
         $this->mailService = $mailService;
     }
     // LOGIN
@@ -82,13 +82,12 @@ class AuthController extends Controller
  
 public function logoutcustomer(Request $request)
 {
-    // echo'<pre>';print_r('yes');exit;
-    Auth::guard('user')->logout();
+    Auth::guard('web')->logout();
 
     $request->session()->invalidate();
     $request->session()->regenerateToken();
 
-    return redirect('/customer')->with('success', 'LogOut successfully.');;
+    return redirect('/customer')->with('success', 'Logged out successfully.');
 }
 
 

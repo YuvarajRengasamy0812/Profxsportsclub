@@ -394,9 +394,13 @@ class DashboardController extends Controller
         return view('dashboard.layouts.oops');
     }
 
-    public function logout()
+    public function logout(\Illuminate\Http\Request $request)
     {
         Auth::logout();
-        return redirect('/');
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/' . config('smartend.backend_path') . '/login');
     }
 }

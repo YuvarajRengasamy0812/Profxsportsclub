@@ -56,7 +56,7 @@
 
     <a href="{{ route('crmsports') }}" 
        class="nav-item flex items-center gap-3 w-full px-4 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest 
-              {{ request()->routeIs('crmports') ? 'bg-[#e85a3c] text-white shadow-xl shadow-orange-200' : 'text-slate-500 hover:bg-slate-50 hover:text-[#0f172a]' }}">
+              {{ request()->routeIs('crmsports') ? 'bg-[#e85a3c] text-white shadow-xl shadow-orange-200' : 'text-slate-500 hover:bg-slate-50 hover:text-[#0f172a]' }}">
       <i data-lucide="target" class="w-5 h-5"></i>
     <span>Sports Directory</span>
     </a>
@@ -121,9 +121,9 @@
         </div>
       </div>
  
-         <form method="POST" action="{{ route('logout') }}">
+         <form method="POST" action="{{ route('logoutcustomer') }}">
                                 @csrf
-                               
+
                                     <button type="submit" class="w-full flex items-center justify-between text-slate-400 hover:text-red-500 transition font-black text-[10px] uppercase tracking-widest">
        <span>Logout</span>
     <i data-lucide="log-out" class="w-4 h-4"></i>

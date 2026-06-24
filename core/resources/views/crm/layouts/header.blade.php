@@ -29,8 +29,11 @@
     <!-- Right Section: Social + Share + Notifications -->
     <div class="flex items-center gap-2 sm:gap-3">
         <!-- Share -->
-        <button onclick="showShare()" class="p-2 sm:p-3 bg-white rounded-2xl border text-[#e85a3c] border-slate-100 hover:text-[#0f172a] hover:bg-slate-50 transition">
-            <i data-lucide="share-2" class="w-5 h-5 sm:w-6 sm:h-6 text-[#e85a3c]"></i>
+        <button onclick="showShare()" class="p-2 sm:p-3 bg-white rounded-2xl border text-[#e85a3c] border-slate-100 hover:text-[#0f172a] hover:bg-slate-50 transition flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
         </button>
 
         <!-- Social Links -->
