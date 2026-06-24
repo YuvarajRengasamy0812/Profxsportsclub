@@ -80,6 +80,9 @@
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
         },
+        "platform": {
+            "php": "8.1.0"
+        },
         "audit": {
             "block-insecure": false,
             "ignore": [
